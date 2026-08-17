@@ -211,15 +211,23 @@ async function loadDashboard(){
 
 function setupAdminFilters(cat){
   if($("filterRegion").options.length<=1){
-    Object.keys(cat).forEach(r=>$("filterRegion").insertAdjacentHTML("beforeend",`<option>${esc(r)}</option>`));
+    const regionesAdmin = [...REGIONS];
+    regionesAdmin.forEach(r=>$("filterRegion").insertAdjacentHTML("beforeend",`<option>${esc(r)}</option>`));
   }
   delegationsCatalog=Object.keys(cat).length?cat:delegationsCatalog;
   updateAdminDelegations();
 }
 function updateAdminDelegations(){
   const r=$("filterRegion").value, current=$("filterDelegacion").value;
+  if(isDppp(r)){
+    $("filterDelegacion").innerHTML='<option value="">No aplica – DPPP</option>';
+    $("filterDelegacion").disabled=true;
+    return;
+  }
+  $("filterDelegacion").disabled=false;
   let list=[];
-  if(r) list=delegationsCatalog[r]||[]; else list=[...new Set(Object.values(delegationsCatalog).flat())].sort((a,b)=>a.localeCompare(b,"es",{numeric:true}));
+  if(r) list=delegationsCatalog[r]||[];
+  else list=[...new Set(Object.values(delegationsCatalog).flat())].sort((a,b)=>a.localeCompare(b,"es",{numeric:true}));
   $("filterDelegacion").innerHTML='<option value="">Todas las delegaciones</option>'+list.map(x=>`<option ${x===current?"selected":""}>${esc(x)}</option>`).join("");
 }
 
@@ -243,7 +251,7 @@ function renderDashboard(){
 }
 function makeChart(id,type,obj,label){
   if(charts[id]) charts[id].destroy();
-  const palette=["#0b2345","#c89a3d","#174f83","#e1bd6c","#496a8c","#8a6a2d","#6f879f","#d8b05b","#294d72","#b58a35"]; charts[id]=new Chart($(id),{type,data:{labels:obj.labels,datasets:[{label,data:obj.values,borderWidth:1,backgroundColor:type==="doughnut"?obj.labels.map((_,i)=>palette[i%palette.length]):"#174f83",borderColor:type==="doughnut"?"#ffffff":"#0b2345",borderRadius:type==="bar"?5:0}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:type==="doughnut",position:"bottom",labels:{usePointStyle:true,boxWidth:8}}},scales:type==="bar"?{y:{beginAtZero:true,ticks:{precision:0},grid:{color:"#e7ebf0"}},x:{grid:{display:false}}}:undefined}});
+  const palette=["#0b2345","#c89a3d","#1d5b92","#e1bd6c","#2c6ca3","#a97c24","#5b7fa3","#d7ad54","#123864","#efd28e"]; charts[id]=new Chart($(id),{type,data:{labels:obj.labels,datasets:[{label,data:obj.values,borderWidth:1,backgroundColor:type==="doughnut"?obj.labels.map((_,i)=>palette[i%palette.length]):"#174f83",borderColor:type==="doughnut"?"#ffffff":"#0b2345",borderRadius:type==="bar"?5:0}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:type==="doughnut",position:"bottom",labels:{usePointStyle:true,boxWidth:8}}},scales:type==="bar"?{y:{beginAtZero:true,ticks:{precision:0},grid:{color:"#e7ebf0"}},x:{grid:{display:false}}}:undefined}});
 }
 function renderTable(id,rows,mapper){
   const tb=$(`${id}`).querySelector("tbody");
