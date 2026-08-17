@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Diagnóstico de Formación y Experiencia en Trata de Personas – DPPP">
+  <title>Diagnóstico de Formación y Experiencia en Trata de Personas – DPPP</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+</head>
+<body>
+  <div id="toast" class="toast" aria-live="polite"></div>
+
+  <main id="surveyView" class="page">
+    <section class="survey-shell">
+      <header class="hero">
+        <div class="hero-kicker">DIRECCIÓN DE PROGRAMAS POLICIALES PREVENTIVOS</div>
+        <h1>Diagnóstico de Formación y Experiencia en Trata de Personas – DPPP</h1>
+        <p><strong>Objetivo:</strong> Recopilar información sobre la formación y experiencia del personal de Programas Policiales Preventivos en materia de trata de personas, con el propósito de identificar los conocimientos y capacitaciones recibidas, las instituciones que las impartieron, su antigüedad y la experiencia relacionada con actividades formativas sobre esta temática, como insumo para determinar la capacidad institucional existente y las necesidades de fortalecimiento o actualización.</p>
+      </header>
+
+      <div class="progress-wrap">
+        <div class="progress-meta"><span id="stepLabel">Sección 1 de 6</span><span id="progressPct">17%</span></div>
+        <div class="progress"><div id="progressBar"></div></div>
+      </div>
+
+      <form id="surveyForm" novalidate>
+        <section class="form-step active" data-step="1">
+          <div class="section-title">SECCIÓN 1. IDENTIFICACIÓN Y UBICACIÓN FUNCIONAL</div>
+          <label>1. Nombre completo <span>*</span>
+            <input name="nombre_completo" required maxlength="120" autocomplete="name" placeholder="Escriba su nombre completo">
+          </label>
+
+          <label>2. Dirección Regional / Unidad de adscripción <span>*</span>
+            <select id="region" name="region" required>
+              <option value="">Seleccione una opción</option>
+            </select>
+          </label>
+
+          <label id="delegacionWrap">3. Delegación policial <span>*</span>
+            <select id="delegacion" name="delegacion">
+              <option value="">Seleccione primero la Dirección Regional</option>
+            </select>
+          </label>
+
+          <div class="grid2">
+            <label>4. Años de servicio en Fuerza Pública <span>*</span>
+              <input type="number" name="anos_servicio" min="0" max="60" required placeholder="Número de años">
+            </label>
+            <label>5. Años de experiencia en Programas Policiales Preventivos <span>*</span>
+              <input type="number" name="anos_ppp" min="0" max="60" required placeholder="Número de años">
+            </label>
+          </div>
+        </section>
+
+        <section class="form-step" data-step="2">
+          <div class="section-title">SECCIÓN 2. FORMACIÓN EN PROGRAMAS POLICIALES PREVENTIVOS</div>
+          <fieldset>
+            <legend>8. Indique los cursos, talleres o procesos de formación de Programas Policiales Preventivos que ha aprobado o recibido. Puede seleccionar más de una opción. <span>*</span></legend>
+            <div id="cursosPpp" class="checks"></div>
+          </fieldset>
+          <label id="otroCursoWrap" class="conditional hidden">9. Indique el nombre de otro curso o proceso formativo relacionado con Programas Policiales Preventivos.
+            <textarea name="otro_curso_ppp" rows="4" placeholder="Detalle el curso o proceso formativo"></textarea>
+          </label>
+        </section>
+
+        <section class="form-step" data-step="3">
+          <div class="section-title">SECCIÓN 3. FORMACIÓN COMO INSTRUCTOR O FACILITADOR</div>
+          <fieldset>
+            <legend>10. ¿Cuenta con formación o acreditación para desempeñarse como instructor, facilitador, formador de formadores o equivalente? <span>*</span></legend>
+            <div class="radios">
+              <label><input type="radio" name="formacion_instructor" value="Sí" required> Sí</label>
+              <label><input type="radio" name="formacion_instructor" value="No" required> No</label>
+            </div>
+          </fieldset>
+          <label id="detalleInstructorWrap" class="conditional hidden">11. Si respondió «Sí», indique el nombre de la formación, institución que la impartió y año.
+            <textarea name="detalle_instructor" rows="5" placeholder="Nombre de la formación, institución y año"></textarea>
+          </label>
+        </section>
+
+        <section class="form-step" data-step="4">
+          <div class="section-title">SECCIÓN 4. FORMACIÓN ESPECÍFICA EN TRATA DE PERSONAS</div>
+          <fieldset>
+            <legend>12. ¿Ha recibido algún curso, taller, seminario, capacitación u otro proceso formativo específicamente relacionado con trata de personas? <span>*</span></legend>
+            <div class="radios">
+              <label><input type="radio" name="formacion_trata" value="Sí" required> Sí</label>
+              <label><input type="radio" name="formacion_trata" value="No" required> No</label>
+            </div>
+          </fieldset>
+
+          <div id="trataDetails" class="conditional hidden">
+            <label>13. Nombre de la capacitación recibida en materia de trata de personas.
+              <input name="capacitacion_trata" maxlength="180">
+            </label>
+            <label>14. Institución u organización que impartió la capacitación.
+              <input name="institucion_trata" maxlength="180">
+            </label>
+            <div class="grid2">
+              <label>15. Año en que recibió la última capacitación.
+                <input type="number" name="anio_ultima_trata" min="1950" max="2100">
+              </label>
+              <label>16. Duración aproximada de la capacitación (horas).
+                <input type="number" name="horas_trata" min="0" max="10000">
+              </label>
+            </div>
+            <fieldset>
+              <legend>17. ¿Cuenta con certificado, constancia u otro documento que acredite esta capacitación?</legend>
+              <div class="radios">
+                <label><input type="radio" name="certificado_trata" value="Sí"> Sí</label>
+                <label><input type="radio" name="certificado_trata" value="No"> No</label>
+              </div>
+            </fieldset>
+            <fieldset>
+              <legend>18. ¿Ha recibido más de una capacitación en materia de trata de personas?</legend>
+              <div class="radios">
+                <label><input type="radio" name="mas_capacitaciones" value="Sí"> Sí</label>
+                <label><input type="radio" name="mas_capacitaciones" value="No"> No</label>
+              </div>
+            </fieldset>
+            <label id="capAdicionalesWrap" class="conditional hidden">19. Si respondió «Sí», detalle las capacitaciones adicionales indicando: nombre, institución que la impartió, año y duración aproximada.
+              <textarea name="capacitaciones_adicionales" rows="5"></textarea>
+            </label>
+          </div>
+        </section>
+
+        <section class="form-step" data-step="5">
+          <div class="section-title">SECCIÓN 5. EXPERIENCIA EN ACTIVIDADES SOBRE TRATA DE PERSONAS</div>
+          <fieldset>
+            <legend>20. ¿Ha impartido anteriormente charlas, talleres, actividades formativas o capacitaciones relacionadas con trata de personas? <span>*</span></legend>
+            <div class="radios">
+              <label><input type="radio" name="ha_impartido" value="Sí" required> Sí</label>
+              <label><input type="radio" name="ha_impartido" value="No" required> No</label>
+            </div>
+          </fieldset>
+
+          <div id="experienciaDetails" class="conditional hidden">
+            <label>21. Si respondió «Sí», indique aproximadamente cuántas actividades ha impartido.
+              <input type="number" name="cantidad_actividades" min="0" max="10000">
+            </label>
+            <fieldset>
+              <legend>22. Indique las poblaciones a las que ha dirigido esas actividades.</legend>
+              <div id="poblaciones" class="checks"></div>
+            </fieldset>
+            <label id="otraPoblacionWrap" class="conditional hidden">Si respondió «otra», detalle la población.
+              <textarea name="otra_poblacion" rows="4"></textarea>
+            </label>
+          </div>
+        </section>
+
+        <section class="form-step" data-step="6">
+          <div class="section-title">SECCIÓN 6. ACTUALIZACIÓN, DISPONIBILIDAD Y SOSTENIBILIDAD</div>
+          <fieldset>
+            <legend>24. ¿Considera que requiere actualización o fortalecimiento de conocimientos en materia de trata de personas antes de participar como facilitador? <span>*</span></legend>
+            <div class="radios">
+              <label><input type="radio" name="requiere_actualizacion" value="Sí" required> Sí</label>
+              <label><input type="radio" name="requiere_actualizacion" value="No" required> No</label>
+              <label><input type="radio" name="requiere_actualizacion" value="Parcialmente" required> Parcialmente</label>
+            </div>
+          </fieldset>
+          <label id="temasFortalecerWrap" class="conditional hidden">25. En caso afirmativo o parcial, indique los temas en los que considera necesario fortalecer sus conocimientos.
+            <textarea name="temas_fortalecer" rows="5"></textarea>
+          </label>
+          <fieldset>
+            <legend>27. De acuerdo con su situación laboral actual, ¿prevé permanecer en servicio activo durante los próximos cinco años? <span>*</span></legend>
+            <div class="radios">
+              <label><input type="radio" name="servicio_cinco_anos" value="Sí" required> Sí</label>
+              <label><input type="radio" name="servicio_cinco_anos" value="No" required> No</label>
+              <label><input type="radio" name="servicio_cinco_anos" value="No puede determinarlo actualmente" required> No puede determinarlo actualmente</label>
+            </div>
+          </fieldset>
+          <div class="notice">La información será utilizada como insumo para identificar capacidad institucional y necesidades de fortalecimiento. La selección o designación formal de facilitadores corresponde posteriormente a la instancia competente.</div>
+        </section>
+
+        <div class="form-actions">
+          <button type="button" id="prevBtn" class="btn secondary hidden">Anterior</button>
+          <button type="button" id="nextBtn" class="btn primary">Siguiente</button>
+          <button type="submit" id="submitBtn" class="btn primary hidden">Enviar diagnóstico</button>
+        </div>
+      </form>
+
+      <footer class="survey-footer">
+        <button id="adminLink" type="button" class="admin-link">Administrador</button>
+      </footer>
+    </section>
+  </main>
+
+  <section id="loginView" class="login-view hidden">
+    <div class="login-card">
+      <button class="back-link" id="backSurvey">← Volver</button>
+      <h2>Acceso administrativo</h2>
+      <p>Ingrese la clave para consultar el dashboard.</p>
+      <label>Clave
+        <input id="adminPassword" type="password" autocomplete="current-password" placeholder="••••••••">
+      </label>
+      <button id="loginBtn" class="btn primary full">Ingresar</button>
+      <div id="loginMsg" class="form-msg"></div>
+    </div>
+  </section>
+
+  <section id="adminView" class="admin-layout hidden">
+    <aside class="sidebar">
+      <div class="brand-text">
+        <strong>DPPP</strong>
+        <small>Diagnóstico de Formación</small>
+      </div>
+      <nav>
+        <button class="nav-btn active" data-panel="dashboardPanel">Dashboard</button>
+        <button class="nav-btn" data-panel="regionsPanel">Regiones y Delegaciones</button>
+        <button class="nav-btn" data-panel="trainingPanel">Capacitaciones</button>
+        <button class="nav-btn" data-panel="officersPanel">Oficiales</button>
+      </nav>
+      <button id="logoutBtn" class="logout">Cerrar sesión</button>
+    </aside>
+
+    <div class="admin-content">
+      <header class="admin-header">
+        <div><h2 id="adminTitle">Dashboard General</h2><p>Resumen de formación y experiencia en Trata de Personas</p></div>
+        <button id="refreshBtn" class="btn secondary">Actualizar</button>
+      </header>
+
+      <div class="filters">
+        <select id="filterRegion"><option value="">Todas las regiones</option></select>
+        <select id="filterDelegacion"><option value="">Todas las delegaciones</option></select>
+        <button id="applyFilters" class="btn primary">Filtrar</button>
+        <button id="clearFilters" class="btn ghost">Limpiar</button>
+      </div>
+
+      <section id="dashboardPanel" class="admin-panel active">
+        <div id="kpiGrid" class="kpi-grid"></div>
+        <div class="charts-grid">
+          <div class="card"><h3>Formación en Trata de Personas por Región</h3><canvas id="regionChart"></canvas></div>
+          <div class="card"><h3>Estado de formación específica</h3><canvas id="statusChart"></canvas></div>
+        </div>
+      </section>
+
+      <section id="regionsPanel" class="admin-panel">
+        <div class="card">
+          <div class="card-head"><h3>Resumen por Región y Delegación</h3><button id="exportRegions" class="btn ghost">Exportar CSV</button></div>
+          <div class="table-wrap"><table id="regionsTable"><thead><tr><th>Región</th><th>Delegación</th><th>Oficiales</th><th>Con formación trata</th><th>Instructores / facilitadores</th><th>Ha impartido</th><th>% formación</th></tr></thead><tbody></tbody></table></div>
+        </div>
+      </section>
+
+      <section id="trainingPanel" class="admin-panel">
+        <div class="charts-grid">
+          <div class="card"><h3>Cursos PPP más reportados</h3><canvas id="coursesChart"></canvas></div>
+          <div class="card"><h3>Necesidad de actualización</h3><canvas id="updateChart"></canvas></div>
+        </div>
+        <div class="card"><h3>Capacitaciones específicas en Trata de Personas</h3><div class="table-wrap"><table id="trainingTable"><thead><tr><th>Oficial</th><th>Región</th><th>Delegación</th><th>Capacitación</th><th>Institución</th><th>Año</th><th>Horas</th><th>Certificado</th></tr></thead><tbody></tbody></table></div></div>
+      </section>
+
+      <section id="officersPanel" class="admin-panel">
+        <div class="card">
+          <div class="card-head"><h3>Detalle por Oficial</h3><input id="officerSearch" class="search" placeholder="Buscar por nombre..."></div>
+          <div class="table-wrap"><table id="officersTable"><thead><tr><th>Oficial</th><th>Región</th><th>Delegación</th><th>Años servicio</th><th>Años PPP</th><th>Formación trata</th><th>Instructor</th><th>Ha impartido</th><th>Actualización</th></tr></thead><tbody></tbody></table></div>
+        </div>
+      </section>
+    </div>
+  </section>
+
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
