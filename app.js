@@ -1,20 +1,149 @@
 const REGIONS = [
-  "Dirección Regional Primera – San José Central",
-  "Dirección Regional Primera – San José Norte",
-  "Dirección Regional Primera – San José Sur",
-  "Dirección Regional Segunda – Alajuela",
-  "Dirección Regional Tercera – Cartago",
-  "Dirección Regional Cuarta – Heredia",
-  "Dirección Regional Quinta – Chorotega",
-  "Dirección Regional Sexta – Pacífico Central",
-  "Dirección Regional Séptima – Pérez Zeledón",
-  "Dirección Regional Octava – San Carlos",
-  "Dirección Regional Novena – Huetar Atlántica",
-  "Dirección Regional Décima – Brunca",
-  "Dirección Regional Undécima – Fronteriza Norte",
-  "Dirección Regional Duodécima – Caribe",
+  "Dirección Regional 1 - San José Central",
+  "Dirección Regional 1 - San José Norte",
+  "Dirección Regional 1 - San José Sur",
+  "Dirección Regional 2 - Alajuela",
+  "Dirección Regional 3 - Cartago",
+  "Dirección Regional 4 - Heredia",
+  "Dirección Regional 5 - Chorotega",
+  "Dirección Regional 6 - Puntarenas",
+  "Dirección Regional 7 - Brunca",
+  "Dirección Regional 8 - Huetar Norte",
+  "Dirección Regional 9 - Huetar Atlántico",
+  "Dirección Regional 10 - Brunca Sur",
+  "Dirección Regional 11 - Chorotega Norte",
+  "Dirección Regional 12 - Caribe",
   "Dirección de Programas Policiales Preventivos (DPPP)"
 ];
+
+const DELEGATIONS_BY_REGION = {
+  "Dirección Regional 1 - San José Central": [
+    "D01 Carmen",
+    "D02 Merced",
+    "D03 Hospital",
+    "D04 Catedral",
+    "D05 San Sebastián",
+    "D06 Hatillo",
+    "D07 Zapote",
+    "D08 Pavas",
+    "D09 Uruca"
+  ],
+  "Dirección Regional 1 - San José Norte": [
+    "D10 Curridabat",
+    "D11 Montes de Oca",
+    "D12 Goicochea",
+    "D13 Moravia",
+    "D14 Tibas",
+    "D15 Coronado"
+  ],
+  "Dirección Regional 1 - San José Sur": [
+    "D16 Desamparados Norte",
+    "D17 Desamparados Sur",
+    "D18 Aserrí",
+    "D19 Acosta",
+    "D20 Alajuelita",
+    "D21 Escazú",
+    "D22 Santa Ana",
+    "D23 Mora",
+    "D24 Puriscal",
+    "D25 Turrúbares"
+  ],
+  "Dirección Regional 2 - Alajuela": [
+    "D26 Alajuela Sur",
+    "D27 Alajuela Norte",
+    "D28 San Ramon",
+    "D29 Grecia",
+    "D30 San Mateo",
+    "D31 Atenas",
+    "D32 Naranjo",
+    "D33 Palmares",
+    "D34 Poas",
+    "D35 Orotina",
+    "D36 Sarchí"
+  ],
+  "Dirección Regional 3 - Cartago": [
+    "D37 Cartago",
+    "D38 Paraíso",
+    "D39 La Unión",
+    "D40 Jímenez",
+    "D41 Turrialba",
+    "D42 Alvarado",
+    "D43 Oreamuno",
+    "D44 El Guarco",
+    "D45 Tarrazú",
+    "D46 Dota",
+    "D47 Leon Cortes",
+    "D48 Guadalupe"
+  ],
+  "Dirección Regional 4 - Heredia": [
+    "D49 Heredia",
+    "D50 Barva",
+    "D51 Santo Domingo",
+    "D52 Santa Barbara",
+    "D53 San Rafael",
+    "D54 San Isidro",
+    "D55 Belen",
+    "D56 Flores",
+    "D57 San Pablo"
+  ],
+  "Dirección Regional 5 - Chorotega": [
+    "D60 Liberia",
+    "D61 Nicoya",
+    "D62 Santa Cruz",
+    "D63 Bagaces",
+    "D64 Carrillo",
+    "D65 Cañas",
+    "D66 Abangares",
+    "D67 Tilaran",
+    "D68 Nandayure",
+    "D69 Hojancha"
+  ],
+  "Dirección Regional 6 - Puntarenas": [
+    "D71 Puntarenas",
+    "D72 Esparza",
+    "D73 Montes de Oro",
+    "D74 Quepos",
+    "D75 Parrita",
+    "D76 Garabito",
+    "D77 Paquera",
+    "D78 Judas de Chomes"
+  ],
+  "Dirección Regional 7 - Brunca": [
+    "D79 Pérez Zeledón",
+    "D80 Buenos Aires",
+    "D81 Osa"
+  ],
+  "Dirección Regional 8 - Huetar Norte": [
+    "D82 San Carlos Este",
+    "D82 San Carlos Oeste",
+    "D83 Zarcero",
+    "D86 Guatuso",
+    "D87 Río Cuarto"
+  ],
+  "Dirección Regional 9 - Huetar Atlántico": [
+    "D88 Limón",
+    "D90 Siquirres",
+    "D91 Talamanca",
+    "D92 Matina"
+  ],
+  "Dirección Regional 10 - Brunca Sur": [
+    "D94 Golfito",
+    "D95 Coto Brus",
+    "D96 Corredores",
+    "D97 Puerto Jiménez"
+  ],
+  "Dirección Regional 11 - Chorotega Norte": [
+    "D70 La Cruz",
+    "D84 Upala",
+    "D85 Los Chiles"
+  ],
+  "Dirección Regional 12 - Caribe": [
+    "D58 Sarapiqui",
+    "D89 Pococí Sur",
+    "D98 Pococí Norte",
+    "D93 Guacimo"
+  ]
+};
 
 const PPP_COURSES = [
   "Curso 050: Formación de equipos regionales en seguridad comunitaria y comercial.",
@@ -33,7 +162,7 @@ const PPP_COURSES = [
 const POPULATIONS = ["Personal policial.","Comunidades organizadas.","Instituciones públicas.","Centros educativos.","Otra población."];
 
 let currentStep = 1;
-let delegationsCatalog = {};
+let delegationsCatalog = {...DELEGATIONS_BY_REGION};
 let adminPassword = "";
 let dashboardData = null;
 let charts = {};
@@ -117,7 +246,6 @@ function validateStep(step){
     if(el.type==="radio"){const group=s.querySelectorAll(`input[name="${el.name}"]`);if(![...group].some(x=>x.checked)){notify("Complete las preguntas obligatorias.",true);el.focus();return false;}}
     else if(!el.value){notify("Complete las preguntas obligatorias.",true);el.focus();return false;}
   }
-  if(step===1 && !isDppp($("region").value) && !$("delegacion").value){notify("Seleccione la delegación policial.",true);$("delegacion").focus();return false;}
   if(step===2 && $$('input[name="cursos_ppp"]:checked').length===0){notify("Seleccione al menos una opción en la pregunta 8.",true);return false;}
   return true;
 }
@@ -126,10 +254,13 @@ function onRegion(){
   const r=$("region").value;
   const dppp=isDppp(r);
   $("delegacionWrap").classList.toggle("hidden",dppp);
-  $("delegacion").required=!dppp;
-  if(dppp){$("delegacion").innerHTML='<option value="">No aplica</option>';return;}
-  const items=delegationsCatalog[r]||[];
-  $("delegacion").innerHTML='<option value="">Seleccione una delegación</option>'+items.map(x=>`<option>${esc(x)}</option>`).join("");
+  $("delegacion").required=false;
+  if(dppp){
+    $("delegacion").innerHTML='<option value="">No aplica</option>';
+    return;
+  }
+  const items=DELEGATIONS_BY_REGION[r]||[];
+  $("delegacion").innerHTML='<option value="">Opcional — seleccione una delegación si corresponde</option>'+items.map(x=>`<option>${esc(x)}</option>`).join("");
 }
 
 function switchView(view){
@@ -155,10 +286,13 @@ function jsonp(params){
 }
 
 async function loadPublicCatalog(){
+  // El formulario usa el catálogo institucional definido en esta versión.
+  // Se conserva la llamada al backend únicamente como comprobación de conectividad,
+  // sin sobrescribir Región → Delegación con catálogos anteriores.
+  delegationsCatalog={...DELEGATIONS_BY_REGION};
   if(!urlReady()) return;
   try{
-    const r=await jsonp({action:"catalog"});
-    if(r.ok){delegationsCatalog=r.delegations||{};}
+    await jsonp({action:"catalog"});
   }catch(e){console.warn(e);}
 }
 
@@ -214,7 +348,7 @@ function setupAdminFilters(cat){
     const regionesAdmin = [...REGIONS];
     regionesAdmin.forEach(r=>$("filterRegion").insertAdjacentHTML("beforeend",`<option>${esc(r)}</option>`));
   }
-  delegationsCatalog=Object.keys(cat).length?cat:delegationsCatalog;
+  delegationsCatalog={...DELEGATIONS_BY_REGION};
   updateAdminDelegations();
 }
 function updateAdminDelegations(){
