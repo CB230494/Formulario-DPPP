@@ -96,7 +96,8 @@ const DELEGATIONS_BY_REGION = {
     "D66 Abangares",
     "D67 Tilaran",
     "D68 Nandayure",
-    "D69 Hojancha"
+    "D69 Hojancha",
+    "D70 La Cruz"
   ],
   "Dirección Regional 6 - Puntarenas": [
     "D71 Puntarenas",
@@ -133,7 +134,6 @@ const DELEGATIONS_BY_REGION = {
     "D97 Puerto Jiménez"
   ],
   "Dirección Regional 11 - Chorotega Norte": [
-    "D70 La Cruz",
     "D84 Upala",
     "D85 Los Chiles"
   ],
