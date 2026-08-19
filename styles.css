@@ -86,3 +86,80 @@ canvas{max-height:330px}.empty{text-align:center;padding:31px!important;color:va
 @media(max-width:640px){.page{padding:0}.survey-shell{border-radius:0;border-left:0;border-right:0}.hero{padding:30px 21px 22px}.hero h1{font-size:26px}.progress-wrap,form{padding-left:21px;padding-right:21px}.grid2{grid-template-columns:1fr}.form-actions{justify-content:stretch}.form-actions .btn{flex:1}.admin-content{padding:11px}.admin-header{align-items:flex-start}.filters{grid-template-columns:1fr}.kpi-grid{grid-template-columns:1fr}.search{width:100%}.card-head{align-items:flex-start;flex-direction:column}}
 
 .optional-note{font-weight:600;color:var(--muted);font-size:12px;margin-left:4px}
+
+
+/* ================================================================
+   V1.7 — ORDEN VISUAL DEL DASHBOARD ADMINISTRATIVO
+   No modifica formulario público, datos ni conexión.
+   ================================================================ */
+.card-subtitle{
+  margin:4px 0 0;
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.45;
+}
+.card-title-row{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:14px;
+  margin-bottom:10px;
+}
+.chart-card{
+  overflow:hidden;
+}
+.chart-box{
+  position:relative;
+  width:100%;
+}
+.chart-box-wide{height:360px}
+.chart-box-donut{height:330px}
+.chart-box-courses{height:430px}
+.dashboard-charts{
+  grid-template-columns:minmax(0,1.55fr) minmax(330px,.85fr);
+  align-items:stretch;
+}
+.dashboard-training-card{
+  margin-top:2px;
+}
+.dashboard-training-head{
+  align-items:flex-start;
+}
+.dashboard-training-head>div{
+  display:block;
+}
+.result-badge{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-width:94px;
+  padding:8px 11px;
+  border-radius:999px;
+  background:linear-gradient(135deg,#fff7e5,#f4e2b8);
+  color:#7d5a15;
+  border:1px solid #e4ca92;
+  font-size:11px;
+  font-weight:850;
+  white-space:nowrap;
+}
+.dashboard-training-table{
+  max-height:520px;
+  overflow:auto;
+}
+#dashboardTrainingTable th:nth-child(7),
+#dashboardTrainingTable td:nth-child(7){
+  text-align:center;
+  font-weight:800;
+}
+#dashboardTrainingTable tbody tr:first-child td:nth-child(7){
+  color:#9a6c10;
+}
+@media(max-width:1050px){
+  .dashboard-charts{grid-template-columns:1fr}
+  .chart-box-wide{height:390px}
+}
+@media(max-width:640px){
+  .chart-box-wide{height:460px}
+  .chart-box-courses{height:520px}
+  .dashboard-training-head{flex-direction:column}
+}
