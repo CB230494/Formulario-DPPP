@@ -374,18 +374,74 @@ function renderDashboard(){
     ["Ha impartido actividades",k.haImpartido||0,`${k.pctImpartido||0}%`]
   ].map(x=>`<div class="kpi"><div class="label">${x[0]}</div><div class="value">${x[1]}</div><div class="sub">${x[2]}</div></div>`).join("");
 
-  makeChart("regionChart","bar",d.charts?.region||{labels:[],values:[]},"Oficiales con formación");
+  makeChart("regionChart","bar",sortChartDataDesc(d.charts?.region||{labels:[],values:[]}),"Oficiales con formación",{horizontal:true});
   makeChart("statusChart","doughnut",d.charts?.status||{labels:[],values:[]},"Estado");
-  makeChart("coursesChart","bar",d.charts?.courses||{labels:[],values:[]},"Oficiales");
+  makeChart("coursesChart","bar",sortChartDataDesc(d.charts?.courses||{labels:[],values:[]}),"Oficiales",{horizontal:true});
   makeChart("updateChart","doughnut",d.charts?.update||{labels:[],values:[]},"Respuesta");
 
   renderTable("regionsTable",d.regions||[],r=>[r.region,r.delegacion,r.total,r.formacionTrata,r.instructores,r.haImpartido,`${r.pct}%`]);
   renderTable("trainingTable",d.training||[],r=>[r.nombre,r.region,r.delegacion,r.capacitacion,r.institucion,r.anio,r.horas,r.certificado]);
+
+  const trainingSorted=(d.training||[]).slice().sort((a,b)=>{
+    const ah=parseFloat(a.horas)||0, bh=parseFloat(b.horas)||0;
+    if(bh!==ah) return bh-ah;
+    return String(a.nombre||"").localeCompare(String(b.nombre||""),"es",{sensitivity:"base"});
+  });
+  $("dashboardTrainingCount").textContent=`${trainingSorted.length} ${trainingSorted.length===1?"oficial":"oficiales"}`;
+  renderTable("dashboardTrainingTable",trainingSorted,r=>[
+    r.nombre,
+    r.region,
+    r.delegacion||"—",
+    r.capacitacion||"Sin indicar",
+    r.institucion||"Sin indicar",
+    r.anio||"—",
+    r.horas!==""&&r.horas!=null?r.horas:"Sin indicar",
+    r.certificado||"—"
+  ]);
+
   renderOfficers();
 }
-function makeChart(id,type,obj,label){
+function sortChartDataDesc(obj){
+  const pairs=(obj.labels||[]).map((label,i)=>({label,value:Number((obj.values||[])[i])||0}));
+  pairs.sort((a,b)=>b.value-a.value || String(a.label).localeCompare(String(b.label),"es",{sensitivity:"base"}));
+  return {labels:pairs.map(x=>x.label),values:pairs.map(x=>x.value)};
+}
+function makeChart(id,type,obj,label,opts={}){
   if(charts[id]) charts[id].destroy();
-  const palette=["#0b2345","#c89a3d","#1d5b92","#e1bd6c","#2c6ca3","#a97c24","#5b7fa3","#d7ad54","#123864","#efd28e"]; charts[id]=new Chart($(id),{type,data:{labels:obj.labels,datasets:[{label,data:obj.values,borderWidth:1,backgroundColor:type==="doughnut"?obj.labels.map((_,i)=>palette[i%palette.length]):"#174f83",borderColor:type==="doughnut"?"#ffffff":"#0b2345",borderRadius:type==="bar"?5:0}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:type==="doughnut",position:"bottom",labels:{usePointStyle:true,boxWidth:8}}},scales:type==="bar"?{y:{beginAtZero:true,ticks:{precision:0},grid:{color:"#e7ebf0"}},x:{grid:{display:false}}}:undefined}});
+  const horizontal=type==="bar" && !!opts.horizontal;
+  const palette=["#0b2345","#c89a3d","#1d5b92","#e1bd6c","#2c6ca3","#a97c24","#5b7fa3","#d7ad54","#123864","#efd28e"];
+  charts[id]=new Chart($(id),{
+    type,
+    data:{
+      labels:obj.labels,
+      datasets:[{
+        label,
+        data:obj.values,
+        borderWidth:1,
+        backgroundColor:type==="doughnut"?obj.labels.map((_,i)=>palette[i%palette.length]):"#174f83",
+        borderColor:type==="doughnut"?"#ffffff":"#0b2345",
+        borderRadius:type==="bar"?5:0,
+        barThickness:type==="bar"?18:undefined,
+        maxBarThickness:type==="bar"?22:undefined
+      }]
+    },
+    options:{
+      indexAxis:horizontal?"y":"x",
+      responsive:true,
+      maintainAspectRatio:false,
+      plugins:{
+        legend:{display:type==="doughnut",position:"bottom",labels:{usePointStyle:true,boxWidth:8}},
+        tooltip:{callbacks:{label:(ctx)=>`${ctx.dataset.label}: ${ctx.raw}`}}
+      },
+      scales:type==="bar"?(horizontal?{
+        x:{beginAtZero:true,ticks:{precision:0},grid:{color:"#e7ebf0"}},
+        y:{grid:{display:false},ticks:{autoSkip:false,font:{size:10}}}
+      }:{
+        y:{beginAtZero:true,ticks:{precision:0},grid:{color:"#e7ebf0"}},
+        x:{grid:{display:false}}
+      }):undefined
+    }
+  });
 }
 function renderTable(id,rows,mapper){
   const tb=$(`${id}`).querySelector("tbody");
