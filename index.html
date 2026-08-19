@@ -223,9 +223,55 @@
 
       <section id="dashboardPanel" class="admin-panel active">
         <div id="kpiGrid" class="kpi-grid"></div>
-        <div class="charts-grid">
-          <div class="card"><h3>Formación en Trata de Personas por Región</h3><canvas id="regionChart"></canvas></div>
-          <div class="card"><h3>Estado de formación específica</h3><canvas id="statusChart"></canvas></div>
+
+        <div class="charts-grid dashboard-charts">
+          <div class="card chart-card">
+            <div class="card-title-row">
+              <div>
+                <h3>Formación en Trata de Personas por Región</h3>
+                <p class="card-subtitle">Oficiales que indicaron contar con formación específica.</p>
+              </div>
+            </div>
+            <div class="chart-box chart-box-wide"><canvas id="regionChart"></canvas></div>
+          </div>
+
+          <div class="card chart-card">
+            <div class="card-title-row">
+              <div>
+                <h3>Estado de formación específica</h3>
+                <p class="card-subtitle">Distribución general de respuestas Sí / No.</p>
+              </div>
+            </div>
+            <div class="chart-box chart-box-donut"><canvas id="statusChart"></canvas></div>
+          </div>
+        </div>
+
+        <div class="card dashboard-training-card">
+          <div class="card-head dashboard-training-head">
+            <div>
+              <h3>Oficiales con capacitación en Trata de Personas</h3>
+              <p class="card-subtitle">Ordenados de mayor a menor según la duración de la capacitación reportada.</p>
+            </div>
+            <span id="dashboardTrainingCount" class="result-badge">0 oficiales</span>
+          </div>
+
+          <div class="table-wrap dashboard-training-table">
+            <table id="dashboardTrainingTable">
+              <thead>
+                <tr>
+                  <th>Oficial</th>
+                  <th>Región / Unidad</th>
+                  <th>Delegación</th>
+                  <th>Capacitación</th>
+                  <th>Institución</th>
+                  <th>Año</th>
+                  <th>Horas</th>
+                  <th>Certificado</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
         </div>
       </section>
 
@@ -238,8 +284,8 @@
 
       <section id="trainingPanel" class="admin-panel">
         <div class="charts-grid">
-          <div class="card"><h3>Cursos PPP más reportados</h3><canvas id="coursesChart"></canvas></div>
-          <div class="card"><h3>Necesidad de actualización</h3><canvas id="updateChart"></canvas></div>
+          <div class="card chart-card"><h3>Cursos PPP más reportados</h3><p class="card-subtitle">Cursos ordenados por cantidad de oficiales que los reportaron.</p><div class="chart-box chart-box-courses"><canvas id="coursesChart"></canvas></div></div>
+          <div class="card chart-card"><h3>Necesidad de actualización</h3><p class="card-subtitle">Distribución de las necesidades de fortalecimiento.</p><div class="chart-box chart-box-donut"><canvas id="updateChart"></canvas></div></div>
         </div>
         <div class="card"><h3>Capacitaciones específicas en Trata de Personas</h3><div class="table-wrap"><table id="trainingTable"><thead><tr><th>Oficial</th><th>Región</th><th>Delegación</th><th>Capacitación</th><th>Institución</th><th>Año</th><th>Horas</th><th>Certificado</th></tr></thead><tbody></tbody></table></div></div>
       </section>
